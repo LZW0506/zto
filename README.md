@@ -4,9 +4,9 @@
 ```bash
 
 // 安装
-composer require lzw/zentao-sdk
+composer require lzw/zto
 
 // 发布
-php artisan vendor:publish --provider="Lzw\ZentaoSdk\ZentaoSdkServiceProvider"
+php artisan vendor:publish --provider="Lzw\ZentaoToOther\ZentaoToOtherProvider"
 
 ```
