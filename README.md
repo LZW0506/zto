@@ -10,3 +10,11 @@ composer require lzw/zto
 php artisan vendor:publish --provider="Lzw\ZentaoToOther\ZentaoToOtherProvider"
 
 ```
+
+#### 禅道api
+```php
+
+$zto = new ZentaoToOther();
+$zto->zentaoSdk()->get('departments'); //Http::post/get
+
+```
