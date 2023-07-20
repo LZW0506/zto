@@ -1,0 +1,29 @@
+{
+    "name": "lzw/zto",
+    "autoload": {
+        "psr-4": {
+            "Lzw\\ZentaoToOther\\": "src/"
+        }
+    },
+    "License": "MIT",
+    "authors": [
+        {
+            "name": "李智伟",
+            "email": "378684147@qq.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lzw\\ZentaoToOther\\ZentaoToOtherProvider"
+            ],
+            "aliases": {
+                "ZentaoToOther": "Lzw\\ZentaoToOther\\ZentaoToOther"
+            }
+        }
+    },
+    "require": {
+        "php": ">=7.4.0",
+        "guzzlehttp/guzzle": ">=6.3"
+    }
+}
