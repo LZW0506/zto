@@ -3,6 +3,7 @@
 namespace Lzw\ZentaoToOther;
 
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class ZentaoSdk
@@ -34,6 +35,10 @@ class ZentaoSdk
      */
     public function getToken(): array
     {
+        if(Cache::has('zentaoToken')){
+            $this->token = Cache::get('zentaoToken');
+            return ['token'=>$this->token];
+        }
         if(empty($this->config['account'])){
             throw new \Exception('zentao account is null');
         }
@@ -47,9 +52,10 @@ class ZentaoSdk
         $result = $this->zentaoHttp()->post('tokens', $data);
         $resultJson = $result->json();
         if(isset($resultJson['error'])){
-            return $resultJson;
+            throw new \Exception('zentao token error:'.json_encode($resultJson['error']));
         }
         $this->token = $resultJson['token'];
+        Cache::put('zentaoToken',$resultJson['token'],600);
         return  $resultJson;
     }
 
@@ -58,7 +64,7 @@ class ZentaoSdk
      * @param array $headers
      * @return PendingRequest
      */
-    function zentaoHttp(array $headers=[])
+    function zentaoHttp(array $headers=[]): PendingRequest
     {
         if(isset($this->token)){
             $headers['token'] = $this->token;
