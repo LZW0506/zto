@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\Log;
 
 class bugToFeishu
 {
+    /**
+     * bug信息整理格式
+     * @param $bugsInfo
+     * @return array
+     */
     public function bugInfo($bugsInfo): array
     {
         return [
@@ -19,12 +24,15 @@ class bugToFeishu
             "当前指派" => is_array($bugsInfo['assignedTo']) ? $bugsInfo['assignedTo']['realname'] : '',
             "指派时间" => empty($bugsInfo['assignedDate']) ? null : strtotime($bugsInfo['assignedDate']) * 1000,
             "由谁解决" => is_array($bugsInfo['resolvedBy']) ? $bugsInfo['resolvedBy']['realname'] : '',
-            "解决时间" => empty($bugsInfo['closedDate']) ? null : strtotime($bugsInfo['resolvedDate']) * 1000,
+            "解决时间" => empty($bugsInfo['resolvedDate']) ? null : strtotime($bugsInfo['resolvedDate']) * 1000,
             "由谁关闭" => is_array($bugsInfo['closedBy']) ? $bugsInfo['closedBy']['realname'] : '',
             "关闭时间" => empty($bugsInfo['closedDate']) ? null : strtotime($bugsInfo['closedDate']) * 1000,
         ];
     }
-
+    /**
+     * 创建或更新bug
+     * @param $bugsInfo
+     */
     public function createOrUpdate($bugsInfo): void
     {
         Log::info($bugsInfo);
@@ -44,7 +52,11 @@ class bugToFeishu
             }
         }
     }
-
+    /**
+     * 更新bug
+     * @param $bugsInfo
+     * @param $record_id
+     */
     private function update($bugsInfo,$record_id)
     {
         $feishuSdk = new FeishuSdk();
@@ -55,7 +67,10 @@ class bugToFeishu
             Log::error($update);
         }
     }
-
+    /**
+     * 创建bug
+     * @param $bugsInfo
+     */
     private function create($bugsInfo): void
     {
         $feishuSdk = new FeishuSdk();
@@ -68,7 +83,11 @@ class bugToFeishu
             Log::error($create);
         }
     }
-
+    /**
+     * bug严重程度
+     * @param $data
+     * @return string
+     */
     private function severity($data): string
     {
         return match ($data) {
@@ -80,7 +99,11 @@ class bugToFeishu
             default => '',
         };
     }
-
+    /**
+     * bug状态
+     * @param $data
+     * @return string
+     */
     private function bugStatus($data): string
     {
         return match ($data) {
@@ -90,7 +113,11 @@ class bugToFeishu
             default => '',
         };
     }
-
+    /**
+     * bug类型
+     * @param $data
+     * @return string
+     */
     private function type($data): string
     {
         return match ($data) {

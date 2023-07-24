@@ -2,13 +2,9 @@
 
 namespace Lzw\ZentaoToOther;
 
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class ZentaoToOther
 {
@@ -21,7 +17,7 @@ class ZentaoToOther
      * @return PendingRequest
      * @throws Exception
      */
-    public function zentaoHttp(array|null $config = null, array $headers = [])
+    public function zentaoHttp(array|null $config = null, array $headers = []): PendingRequest
     {
         try {
             $zentaoSdk = new ZentaoSdk($config);
@@ -36,7 +32,7 @@ class ZentaoToOther
      * @return PendingRequest
      * @throws Exception
      */
-    public function feishuHttp()
+    public function feishuHttp(): PendingRequest
     {
         try {
             $zentaoSdk = new FeishuSdk();
@@ -51,7 +47,7 @@ class ZentaoToOther
      * @param array|null $config
      * @return ZentaoSdk
      */
-    public function zentaoSdk(array|null $config = null)
+    public function zentaoSdk(array|null $config = null): ZentaoSdk
     {
         return new ZentaoSdk($config);
     }
@@ -61,12 +57,17 @@ class ZentaoToOther
      * feishuSdk
      * @return FeishuSdk
      */
-    public function feishuSdk()
+    public function feishuSdk(): FeishuSdk
     {
         return new FeishuSdk();
     }
 
-    public function zentaoHook($message)
+    /**
+     * 禅道webhook
+     * @param array $message
+     * @throws Exception
+     */
+    public function zentaoHook($message): void
     {
         $zentaoSdk = new ZentaoSdk();
         if ($message['objectType'] === 'bug') {
@@ -77,7 +78,6 @@ class ZentaoToOther
 
         }
     }
-
 
 
     /**
