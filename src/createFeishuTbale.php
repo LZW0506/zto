@@ -18,6 +18,18 @@ return  [
                 "type" => 1,
             ],
             [
+                "field_name" => "所属项目",
+                "type" => 1,
+            ],
+            [
+                "field_name" => "所属产品",
+                "type" => 1,
+            ],
+            [
+                "field_name" => "所属模块",
+                "type" => 1,
+            ],
+            [
                 "field_name" => "bug状态",
                 "type" => 3,
                 "property"=>[

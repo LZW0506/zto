@@ -14,8 +14,11 @@ class bugToFeishu
     public function bugInfo($bugsInfo): array
     {
         return [
-            "id" => $bugsInfo['id'],
-            "标题" => $bugsInfo['title'],
+            "id" => $bugsInfo['id'] ?? '',
+            "标题" => $bugsInfo['title'] ?? '',
+            "所属项目" => $bugsInfo['projectName'] ?? '',
+            "所属产品" => $bugsInfo['productName'] ?? '',
+            "所属模块" => $bugsInfo['moduleTitle'] ?? '',
             "bug状态" => $this->bugStatus($bugsInfo['status']),
             "严重程度" => $this->severity($bugsInfo['severity']),
             "类型" => $this->type($bugsInfo['type']),
