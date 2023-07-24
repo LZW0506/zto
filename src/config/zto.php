@@ -50,23 +50,38 @@ return [
         'table_info' => [
             "name" => "bugList", // 数据表名
             "default_view_name" => "bugList", // 默认视图名
+
+            /*
+             *  优先级
+             */
             "pri" => [
                 1 => "1",
                 2 => "2",
                 3 => "3",
                 4 => "4",
-            ],// 优先级
+            ],
+
+            /*
+             *  bug状态
+             */
             "bug_status" => [
                 "active" => "激活",
                 "resolved" => "已解决",
                 "closed" => "已关闭",
-            ], // bug状态字段名
+            ],
+
+            /*
+             *  严重程度
+             */
             "severity" =>  [
                 1 => "1",
                 2 => "2",
                 3 => "3",
                 4 => "4",
-            ], // 严重程度
+            ],
+            /*
+             *  bug类型
+             */
             "type" => [
                 "codeerror" => "代码错误",
                 "config" => "配置相关",
@@ -77,7 +92,7 @@ return [
                 "automation" => "测试脚本",
                 "designdefect" => "设计缺陷",
                 "others" => "其他",
-            ], // bug类型
+            ],
         ],
     ],
 ];
