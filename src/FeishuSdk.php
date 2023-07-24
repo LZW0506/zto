@@ -65,9 +65,9 @@ class FeishuSdk
     }
     function getDataTableId()
     {
-        $table_id = config('zto.feishu.data_table_id');
+        $table_id = config('zto.feishu.table_id');
         if (empty($table_id)) {
-            $table_id = Cache::get('feishu_data_table_id');
+            $table_id = Cache::get('feishu_table_id');
         }
         return $table_id;
     }

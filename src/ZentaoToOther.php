@@ -97,8 +97,8 @@ class ZentaoToOther
             if ($createTable['code'] !== 0) {
                 return $createTable;
             }
-            Cache::set('feishu_data_table_id', $createTable['data']['table_id']);
-            return [...$createTable, 'remark' => '请将table_id配置到.env文件中的 FEISHU_DATA_TABLE_ID 上以防丢失'];
+            Cache::set('feishu_table_id', $createTable['data']['table_id']);
+            return [...$createTable, 'remark' => '请将table_id配置到.env文件中的 FEISHU_TABLE_ID 上以防丢失'];
         }
         return $this->success(['data_table_id' => $table_id]);
 

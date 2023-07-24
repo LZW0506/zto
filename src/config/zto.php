@@ -45,11 +45,6 @@ return [
         'table_id' => env('FEISHU_TABLE_ID', ''),
 
         /*
-        *飞书多维表格 数据表id
-        */
-        'data_table_id' => env('FEISHU_DATA_TABLE_ID', ''),
-
-        /*
         *飞书创建多维表格
         */
         'table_info' => [
