@@ -19,9 +19,10 @@ class bugToFeishu
             "所属项目" => $bugsInfo['projectName'] ?? '',
             "所属产品" => $bugsInfo['productName'] ?? '',
             "所属模块" => $bugsInfo['moduleTitle'] ?? '',
-            "bug状态" => $this->bugStatus($bugsInfo['status']),
-            "严重程度" => $this->severity($bugsInfo['severity']),
-            "类型" => $this->type($bugsInfo['type']),
+            "bug状态" => $this->bugKey($bugsInfo['status'],'bug_status'),
+            "优先级" => $this->bugKey($bugsInfo['pri'],'pri'),
+            "严重程度" => $this->bugKey($bugsInfo['severity'],'severity'),
+            "类型" => $this->bugKey($bugsInfo['type'],'type'),
             "由谁创建" => is_array($bugsInfo['openedBy']) ? $bugsInfo['openedBy']['realname'] : '',
             "创建时间" => empty($bugsInfo['openedDate']) ? null : strtotime($bugsInfo['openedDate']) * 1000,
             "当前指派" => is_array($bugsInfo['assignedTo']) ? $bugsInfo['assignedTo']['realname'] : '',
@@ -60,7 +61,7 @@ class bugToFeishu
      * @param $bugsInfo
      * @param $record_id
      */
-    private function update($bugsInfo,$record_id)
+    private function update($bugsInfo,$record_id): void
     {
         $feishuSdk = new FeishuSdk();
         $app_token = config('zto.feishu.app_token');
@@ -86,56 +87,18 @@ class bugToFeishu
             Log::error($create);
         }
     }
+
     /**
-     * bug严重程度
-     * @param $data
-     * @return string
+     * bug状态转换
+     * @param $string
+     * @param string $configKey
+     * @return mixed|string
      */
-    private function severity($data): string
+    private function bugKey($string,$configKey): mixed
     {
-        return match ($data) {
-            1 => '严重',
-            2 => '高',
-            3 => '中',
-            4 => '低',
-            5 => '建议',
-            default => '',
-        };
+        $config = config("zto.feishu.table_info.{$configKey}");
+        return $config[$string] ?? '';
     }
-    /**
-     * bug状态
-     * @param $data
-     * @return string
-     */
-    private function bugStatus($data): string
-    {
-        return match ($data) {
-            "active" => '激活',
-            "resolved" => '已解决',
-            "closed" => '已关闭',
-            default => '',
-        };
-    }
-    /**
-     * bug类型
-     * @param $data
-     * @return string
-     */
-    private function type($data): string
-    {
-        return match ($data) {
-            "codeerror" => '代码错误',
-            "1" => '与原型不符',
-            "config" => '功能优化',
-            "install" => '原型优化',
-            "security" => '界面问题',
-            "performance" => '性能问题',
-            "standard" => '需求变更',
-            "automation" => '安全相关',
-            "designdefect" => '设计缺陷',
-            "others" => '其他',
-            "suggest" => '优化建议',
-            default => '',
-        };
-    }
+
+
 }

@@ -1,5 +1,18 @@
 <?php
+// 将config中key=>value 转换成飞书需要的格式
+function setConfig($config): array
+{
+    $arr = [];
+    if(!empty($config) && is_array($config) && sizeof($config) > 0){
+        foreach ($config as $value ){
+            $arr[] = [
+                "name" => $value
+            ];
+        }
 
+    }
+    return $arr;
+}
 // https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/create
 return  [
     'table' => [
@@ -33,21 +46,28 @@ return  [
                 "field_name" => "bug状态",
                 "type" => 3,
                 "property"=>[
-                    "options"=>config('zto.feishu.table_info.bug_status')
+                    "options"=>setConfig(config('zto.feishu.table_info.bug_status'))
+                ]
+            ],
+            [
+                "field_name" => "优先级",
+                "type" => 3,
+                "property"=>[
+                    "options"=>setConfig(config('zto.feishu.table_info.pri'))
                 ]
             ],
             [
                 "field_name" => "严重程度",
                 "type" => 3,
                 "property"=>[
-                    "options"=>config('zto.feishu.table_info.severity')
+                    "options"=>setConfig(config('zto.feishu.table_info.severity'))
                 ]
             ],
             [
                 "field_name" => "类型",
                 "type" => 3,
                 "property"=>[
-                    "options"=>config('zto.feishu.table_info.type')
+                    "options"=>setConfig(config('zto.feishu.table_info.type'))
                 ]
             ],
             [

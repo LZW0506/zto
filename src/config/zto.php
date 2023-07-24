@@ -22,7 +22,7 @@ return [
     'password' => env('ZENTAO_PASS', ''),
 
 
-    'feishu'=>[
+    'feishu' => [
 
         /*
         *飞书多应用app_id
@@ -50,52 +50,33 @@ return [
         'table_info' => [
             "name" => "bugList", // 数据表名
             "default_view_name" => "bugList", // 默认视图名
+            "pri" => [
+                1 => "1",
+                2 => "2",
+                3 => "3",
+                4 => "4",
+            ],// 优先级
             "bug_status" => [
-                [
-                    "name"=>"激活",
-                ],[
-                    "name"=>"已解决",
-                ],[
-                    "name"=>"已关闭",
-                ]
+                "active" => "激活",
+                "resolved" => "已解决",
+                "closed" => "已关闭",
             ], // bug状态字段名
-            "severity" => [
-                [
-                    "name"=>"严重",
-                ],
-                [
-                    "name"=>"高",
-                ],
-                [
-                    "name"=>"中",
-                ],
-                [
-                    "name"=>"低",
-                ],
-                [
-                    "name"=>"建议",
-                ],
+            "severity" =>  [
+                1 => "1",
+                2 => "2",
+                3 => "3",
+                4 => "4",
             ], // 严重程度
             "type" => [
-                [
-                    "name"=>"代码错误",
-                ],[
-                    "name"=>"配置相关",
-                ],[
-                    "name"=>"安装部署",
-                ],[
-                    "name"=>"安全相关",
-                ],[
-                    "name"=>"性能问题",
-                ],[
-                    "name"=>"标准规范",
-                ],[
-                    "name"=>"测试脚本",
-                ],[
-                    "name"=>"设计缺陷",
-                ],[
-                    "name"=>"其他",
-                ],
+                "codeerror" => "代码错误",
+                "config" => "配置相关",
+                "install" => "安装部署",
+                "security" => "安全相关",
+                "performance" => "性能问题",
+                "standard" => "标准规范",
+                "automation" => "测试脚本",
+                "designdefect" => "设计缺陷",
+                "others" => "其他",
             ], // bug类型
         ],
     ],
